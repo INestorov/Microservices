@@ -1,0 +1,116 @@
+buildscript {
+	repositories {
+		mavenCentral()
+		//Needed only for SNAPSHOT versions
+		//maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+	}
+	dependencies {
+		classpath 'info.solidsoft.gradle.pitest:gradle-pitest-plugin:1.5.2'
+	}
+}
+
+plugins {
+	id 'org.springframework.boot' version '2.3.5.RELEASE' apply false
+	id 'io.spring.dependency-management' version '1.0.10.RELEASE' apply( false )
+	id 'java'
+}
+
+repositories {
+	mavenCentral()
+}
+
+subprojects {
+
+	apply plugin: 'java'
+	apply plugin: 'io.spring.dependency-management'
+	apply plugin: 'org.springframework.boot'
+	// Test coverage
+	apply plugin: 'jacoco'
+
+	// Code style
+	apply plugin: 'checkstyle'
+
+	// PMD
+	apply plugin: 'pmd'
+
+	// PITest
+	apply plugin: 'info.solidsoft.pitest'
+
+	dependencies {
+		implementation 'org.springframework.boot:spring-boot-starter'
+		implementation 'org.springframework.boot:spring-boot-starter-web'
+		implementation 'org.springframework.security:spring-security-test'
+
+		testImplementation('org.springframework.boot:spring-boot-starter-test') {
+			exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+		}
+		testImplementation('org.junit.jupiter:junit-jupiter:5.5.2')
+		testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.1.0'
+		testImplementation('org.assertj:assertj-core:3.14.0')
+		implementation 'org.junit.jupiter:junit-jupiter'
+	}
+
+	jacoco {
+		toolVersion = "0.8.6"
+	}
+
+	test {
+		useJUnitPlatform()
+		jacoco {
+			enabled = true
+			includes = ['nl.tudelft.sem.*']
+			excludes = []
+		}
+	}
+
+	repositories {
+		mavenCentral()
+	}
+
+	jacocoTestCoverageVerification() {
+		dependsOn test
+//		violationRules {
+//			rule {
+//				enabled = true
+//				element = 'CLASS'
+//				includes = ['nl.tudelft.sem.*']
+//
+//				limit {
+//					counter = 'BRANCH'
+//					value = 'COVEREDRATIO'
+//					minimum = 0.1
+//				}
+//			}
+//		}
+	}
+
+	checkstyle {
+		toolVersion "8.37"
+		configFile = rootProject.file('config/checkstyle/checkstyle.xml')
+
+		ignoreFailures = false
+		maxErrors = 0
+		maxWarnings = 0
+
+	}
+
+	pmd {
+		incrementalAnalysis = true
+	}
+
+	apply plugin: 'info.solidsoft.pitest'
+	pitest {
+		//adds dependency to org.pitest:pitest-junit5-plugin and sets "testPlugin" to "junit5"
+		junit5PluginVersion = '0.12'
+
+		targetClasses = ['nl.tudelft.sem.*']  //by default "${project.group}.*"
+		pitestVersion = '1.5.1' //not needed when a default PIT version should be used
+		threads = 4
+		outputFormats = ['XML', 'HTML']
+		timestampedReports = false
+	}
+
+
+}
+
+

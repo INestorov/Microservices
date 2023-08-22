@@ -1,0 +1,6 @@
+rootProject.name = 'template'
+include 'api_gateway'
+include 'foodservices'
+include 'authentication-service'
+include 'housemanagement'
+

@@ -1,0 +1,19 @@
+| Person  | Task                                               |                 | Estimated Effort | Actual Effort | Done   | Notes                                                                                                                                                                   |
+| ------- | --------------------------------------------------- | --------------- | ---------------------------- | ------------------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Jorian  | Implement House Microservice           |    Jorian             |       5 hours                       |    8 hours                       |   Partly     |          Still need to add some mapping functions and write tests                                                                                                                                                               |
+| Nina    | Implement Food Microservice                         | Nina, Waded     | 5 hours                      | 9 hours                   | Partly | We did recieve help by Dimitar in order to get the structure to work                                                                                                    |
+| Waded   | Implement House Microservice                        | Nina, Waded     | 5 hours                      | 10 hours                  | Partly | The food microservice waas split over multiple issues, the most important one, #19, and setting up the microservice is done and functional. The rest is being worked on |
+| Dimitar | Implement registration                              | Dimitar | 1 hour                       | 2 hours                   | Yes    | Spring is harder to work with than I hoped.                                                                                                                             |
+|         | Implement Api gateway                               | Ivan, Dimitar   | 10 hours                     | 2 hours                   | No     |                                                                                                                                                                         |
+| Ivan    | Implement Api gateway                               | Ivan, Dimitar   | 5 hours                      | 10 hours                  | Partly | The forwarding of requests is tricky                                                                                                                                    |
+| Simcha  | Implement login and refactoring of the microservice |        Simcha         | 4 hours                      | 14 hours                  | Yes    | Spent a lot of time trying different approaches and reading and tutorials                                                                                               |
+|         | Make UserValidator and tests                        |           Simcha      | 1 hours                      | 1 hours                   | Yeah   |                                                                                                                                                                         |
+
+## Main Problems Encountered:						
+#### Problem 1:						
+Description:  Deciding on the architecture of our microservice application.						
+Reaction: Some team members were already prepared to give suggestions for architecture components, others joined on the go, and the architecture was agreed on very briskly.						
+						
+#### Problem 2:						
+Description:  Forwarding of requests by the gateway						
+Reaction: We created new requests from the incoming ones and sent them separately, waiting for a response, making the communication synchronous.						

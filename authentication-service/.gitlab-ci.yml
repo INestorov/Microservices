@@ -1,0 +1,23 @@
+image: gradle:6.7-jdk15
+
+stages:
+  - build
+  - staticAnalysis
+  - test
+
+auth-build:
+  stage: build
+  script:
+    gradle :authentication-service:assemble
+
+auth-PMD-checkStyle:
+  stage: staticAnalysis
+  script:
+    gradle :authentication-service:checkstyleMain :authentication-service:checkStyleTest :authentication-service:pmdMain :authentication-service:pmdTest
+  allow_failure: true
+
+
+auth-test:
+  stage: test
+  script:
+    gradle --info :authentication-service:test

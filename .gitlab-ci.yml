@@ -1,0 +1,5 @@
+include:
+  - foodservices/.gitlab-ci.yml
+  - api_gateway/.gitlab-ci.yml
+  - housemanagement/.gitlab-ci.yml
+  - authentication-service/.gitlab-ci.yml
